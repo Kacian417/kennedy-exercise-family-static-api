@@ -34,7 +34,7 @@ Jimmy ={
     "first_name": "Jimmy",
     #"last_name": jackson_family.last_name,
     "age": 5,
-    "lucky_numbers": 1
+    "lucky_numbers": [1]
 }
 
 jackson_family.add_member(John)
@@ -64,6 +64,7 @@ def get_members():
 @app.route('/member/<int:id>', methods=['GET'])
 def get_single_member(id):
     member = jackson_family.get_member(id)
+    print(member, "here is the member")
     return jsonify(member), 200
 
 #POST
@@ -77,7 +78,7 @@ def add_a_member():
 
 #DELETE
 @app.route('/member/<int:id>', methods=['DELETE'])
-def remove_a_member():
+def delete_a_member(id):
     #retrieve the member using the get_member(id) method in FamilyStructure
     member = jackson_family.get_member(id)
     #if the member exists,
@@ -89,8 +90,8 @@ def remove_a_member():
         }), 200
         #can use the delete_member(id) method
         #return a jsonified message stating that the member was successfully removed (200)
-    #else
-       # r#retun a jsonified message stating that the member does not exist (404)
+    else:
+       # return a jsonified message stating that the member does not exist (404)
        return jsonify({
             "message": "Member not found",
             "done": False

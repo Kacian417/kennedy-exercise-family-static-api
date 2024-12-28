@@ -24,12 +24,14 @@ def test_first_three(client):
 
 @pytest.mark.it("Implement method POST /member to add a new member")
 def test_add_implementation(client):
-    response = client.post('/member', json={
+    response = client.post('/member', 
+        json={
 		"first_name": "Tommy",
         "id": 3443,
 		"age": 23,
 		"lucky_numbers": [34,65,23,4,6]
-	})
+	}
+    )
     assert response.status_code == 200
 
 @pytest.mark.it("Method POST /member should return something, NOT EMPTY")
@@ -51,6 +53,7 @@ def test_get_members_exist(client):
 def test_get_members_returns_list(client):
     response = client.get('/members')
     data = json.loads(response.data)
+    print(data, "here is the data")
     assert isinstance(data, list)
 
 @pytest.mark.it("We added two members using POST /member, when calling the GET /members should get a list of length == 5")
